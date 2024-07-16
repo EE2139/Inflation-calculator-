@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+
+typedef struct {
+    char country[50];
+    float inflation_rate;
+} CountryInflationRate;
+
+int main() {
+    float current_price;
+    int years;
+    double future_value;
+    char country[50];
+    
+    CountryInflationRate inflation_rates[] = {
+        {"USA", 3.2}, {"India", 6.5}, {"UK", 2.1}, {"Canada", 1.9}, {"Australia", 1.5},
+        {"China", 2.3}, {"Brazil", 4.5}, {"Russia", 5.1}, {"South Africa", 3.7}, {"Japan", 0.7},
+        {"Germany", 1.8}, {"France", 1.6}, {"Italy", 1.4}, {"Spain", 1.7}, {"Mexico", 3.9},
+        {"Argentina", 8.5}, {"Chile", 2.7}, {"Colombia", 3.4}, {"Peru", 2.1}, {"Venezuela", 35.0},
+        {"Saudi Arabia", 1.2}, {"UAE", 1.4}, {"Israel", 1.1}, {"Egypt", 10.0}, {"Turkey", 11.0},
+        {"Iran", 25.0}, {"Iraq", 6.8}, {"Syria", 20.0}, {"Lebanon", 7.5}, {"Jordan", 2.0},
+        {"Sweden", 1.5}, {"Norway", 1.8}, {"Finland", 1.2}, {"Denmark", 1.4}, {"Iceland", 1.9},
+        {"Netherlands", 1.7}, {"Belgium", 1.6}, {"Austria", 1.5}, {"Switzerland", 0.8}, {"Poland", 2.6},
+        {"Czech Republic", 2.3}, {"Hungary", 3.1}, {"Slovakia", 2.0}, {"Croatia", 1.9}, {"Slovenia", 1.5},
+        {"Greece", 1.2}, {"Portugal", 1.3}, {"Ireland", 1.4}, {"Ukraine", 6.9}, {"Belarus", 7.1},
+        {"Kazakhstan", 5.5}, {"Uzbekistan", 6.3}, {"Azerbaijan", 4.0}, {"Armenia", 3.5}, {"Georgia", 3.0},
+        {"New Zealand", 1.6}, {"South Korea", 1.2}, {"North Korea", 15.0}, {"Philippines", 4.1}, {"Indonesia", 3.6},
+        {"Malaysia", 2.0}, {"Singapore", 1.3}, {"Thailand", 1.5}, {"Vietnam", 3.0}, {"Myanmar", 7.2},
+        {"Bangladesh", 5.8}, {"Pakistan", 6.2}, {"Afghanistan", 8.0}, {"Sri Lanka", 4.5}, {"Nepal", 4.2},
+        {"Bhutan", 3.1}, {"Maldives", 2.7}, {"Mongolia", 4.8}, {"Cambodia", 3.6}, {"Laos", 5.0},
+        {"Taiwan", 1.2}, {"Hong Kong", 1.4}, {"Macau", 1.3}, {"Saudi Arabia", 1.2}, {"Qatar", 1.5},
+        {"Kuwait", 1.7}, {"Oman", 1.4}, {"Bahrain", 1.6}, {"Yemen", 20.0}, {"Somalia", 30.0},
+        {"Ethiopia", 15.0}, {"Kenya", 4.2}, {"Tanzania", 5.3}, {"Uganda", 4.6}, {"Rwanda", 3.9},
+        {"Nigeria", 16.0}, {"Ghana", 10.5}, {"Ivory Coast", 5.0}, {"Senegal", 4.0}, {"Cameroon", 3.7}
+    };
+    int num_countries = sizeof(inflation_rates) / sizeof(inflation_rates[0]);
+
+    printf("Enter the current price of the product: ");
+    scanf("%f", &current_price);
+
+    printf("Enter the country where you bought the product: ");
+    scanf("%s", country);
+
+    printf("Enter the number of years into the future you want to estimate: ");
+    scanf("%d", &years);
+
+    float inflation_rate = -1;
+    for (int i = 0; i < num_countries; i++) {
+        if (strcmp(inflation_rates[i].country, country) == 0) {
+            inflation_rate = inflation_rates[i].inflation_rate;
+            break;
+        }
+    }
+
+    if (inflation_rate == -1) {
+        printf("Country not found in the list.\n");
+        return 1;
+    }
+
+    inflation_rate /= 100;
+
+    future_value = current_price * pow((1 + inflation_rate), years);
+
+    printf("The estimated future value of the product in %s after %d years is %.2f\n", country, years, future_value);
+
+    return 0;
+}
